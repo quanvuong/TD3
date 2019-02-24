@@ -13,7 +13,7 @@ import DDPG
 # Runs policy for X episodes and returns average reward
 def evaluate_policy(policy, eval_episodes=10):
 	avg_reward = 0.
-	for _ in xrange(eval_episodes):
+	for _ in range(eval_episodes):
 		obs = env.reset()
 		done = False
 		while not done:
@@ -23,9 +23,9 @@ def evaluate_policy(policy, eval_episodes=10):
 
 	avg_reward /= eval_episodes
 
-	print "---------------------------------------"
-	print "Evaluation over %d episodes: %f" % (eval_episodes, avg_reward)
-	print "---------------------------------------"
+	print("---------------------------------------")
+	print("Evaluation over %d episodes: %f" % (eval_episodes, avg_reward))
+	print("---------------------------------------")
 	return avg_reward
 
 
@@ -49,9 +49,9 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 
 	file_name = "%s_%s_%s" % (args.policy_name, args.env_name, str(args.seed))
-	print "---------------------------------------"
-	print "Settings: %s" % (file_name)
-	print "---------------------------------------"
+	print("---------------------------------------")
+	print("Settings: %s" % (file_name))
+	print("---------------------------------------")
 
 	if not os.path.exists("./results"):
 		os.makedirs("./results")
@@ -89,7 +89,10 @@ if __name__ == "__main__":
 		if done: 
 
 			if total_timesteps != 0: 
-				print("Total T: %d Episode Num: %d Episode T: %d Reward: %f") % (total_timesteps, episode_num, episode_timesteps, episode_reward)
+				print(f"Total T: {total_timesteps}"
+					  f" Episode Num: {episode_num}"
+                      f" Episode T: {episode_timesteps}"
+                      f" Reward: {episode_reward}")
 				if args.policy_name == "TD3":
 					policy.train(replay_buffer, episode_timesteps, args.batch_size, args.discount, args.tau, args.policy_noise, args.noise_clip, args.policy_freq)
 				else: 
