@@ -3,6 +3,7 @@ import os
 import gym
 import numpy as np
 import torch
+import random
 
 import DDPG
 import OurDDPG
@@ -12,6 +13,15 @@ from tqdm import trange
 
 from tensorboardX import SummaryWriter
 from args import get_args
+
+
+def set_global_seeds(seed):
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+
+    np.random.seed(seed)
+    random.seed(seed)
 
 
 # Runs policy for X episodes and returns average reward
@@ -55,8 +65,7 @@ if __name__ == "__main__":
 
     # Set seeds
     env.seed(args.seed)
-    torch.manual_seed(args.seed)
-    np.random.seed(args.seed)
+    set_global_seeds(args.seed)
 
     state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.shape[0]
