@@ -12,26 +12,7 @@ from tqdm import trange
 
 from tensorboardX import SummaryWriter
 from args import get_args
-from utils import set_global_seeds
-
-
-# Runs policy for X episodes and returns average reward
-def evaluate_policy(policy, eval_episodes=100):
-    avg_reward = 0.
-    for _ in range(eval_episodes):
-        obs = env.reset()
-        done = False
-        while not done:
-            action = policy.select_action(np.array(obs))
-            obs, reward, done, _ = env.step(action)
-            avg_reward += reward
-
-    avg_reward /= eval_episodes
-
-    print("---------------------------------------")
-    print("Evaluation over %d episodes: %f" % (eval_episodes, avg_reward))
-    print("---------------------------------------")
-    return avg_reward
+from utils import set_global_seeds, evaluate_policy
 
 
 if __name__ == "__main__":
@@ -73,7 +54,7 @@ if __name__ == "__main__":
     replay_buffer = utils.ReplayBuffer()
 
     # Evaluate untrained policy
-    evaluations = [evaluate_policy(policy)]
+    evaluations = [evaluate_policy(policy, env)]
     writer.add_scalar('episode_count/eval_performance', evaluations[0], 0)
 
     timesteps_since_eval = 0
@@ -103,7 +84,7 @@ if __name__ == "__main__":
             if timesteps_since_eval >= args.eval_freq:
                 timesteps_since_eval %= args.eval_freq
 
-                eval_perf = evaluate_policy(policy)
+                eval_perf = evaluate_policy(policy, env)
                 evaluations.append(eval_perf)
                 writer.add_scalar('episode_count/eval_performance', eval_perf, episode_num)
 
@@ -139,6 +120,6 @@ if __name__ == "__main__":
         timesteps_since_eval += 1
 
     # Final evaluation
-    evaluations.append(evaluate_policy(policy))
+    evaluations.append(evaluate_policy(policy, env))
     if args.save_models: policy.save("%s" % (file_name), directory="./pytorch_models")
     np.save("./results/%s" % (file_name), evaluations)

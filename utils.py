@@ -9,6 +9,8 @@ import numpy as np
 # Expects tuples of (state, next_state, action, reward, done)
 import torch
 
+from main import env
+
 
 class ReplayBuffer(object):
     def __init__(self, max_size=1e6):
@@ -45,3 +47,21 @@ def set_global_seeds(seed):
 
     np.random.seed(seed)
     random.seed(seed)
+
+
+def evaluate_policy(policy, env, eval_episodes=100):
+    avg_reward = 0.
+    for _ in range(eval_episodes):
+        obs = env.reset()
+        done = False
+        while not done:
+            action = policy.select_action(np.array(obs))
+            obs, reward, done, _ = env.step(action)
+            avg_reward += reward
+
+    avg_reward /= eval_episodes
+
+    print("---------------------------------------")
+    print("Evaluation over %d episodes: %f" % (eval_episodes, avg_reward))
+    print("---------------------------------------")
+    return avg_reward
