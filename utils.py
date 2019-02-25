@@ -1,3 +1,5 @@
+import random
+
 import numpy as np
 
 
@@ -5,6 +7,9 @@ import numpy as np
 # https://github.com/openai/baselines/blob/master/baselines/deepq/replay_buffer.py
 
 # Expects tuples of (state, next_state, action, reward, done)
+import torch
+
+
 class ReplayBuffer(object):
     def __init__(self, max_size=1e6):
         self.storage = []
@@ -31,3 +36,12 @@ class ReplayBuffer(object):
             d.append(np.array(D, copy=False))
 
         return np.array(x), np.array(y), np.array(u), np.array(r).reshape(-1, 1), np.array(d).reshape(-1, 1)
+
+
+def set_global_seeds(seed):
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+
+    np.random.seed(seed)
+    random.seed(seed)
