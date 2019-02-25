@@ -4,6 +4,7 @@ A port of the official PyTorch implementation of Twin Delayed Deep Deterministic
 
 1. trange from the tqdm package is used to display progress bar
 2. torch.set_num_threads(1)
+3. Use tensorboardX to visualize evaluation performance during training
 
 ### Usage
 The paper results can be reproduced exactly by running:

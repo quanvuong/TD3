@@ -11,6 +11,8 @@ import TD3
 import utils
 from tqdm import trange
 
+from tensorboardX import SummaryWriter
+
 
 # Runs policy for X episodes and returns average reward
 def evaluate_policy(policy, eval_episodes=100):
@@ -58,6 +60,8 @@ if __name__ == "__main__":
     print("Settings: %s" % (file_name))
     print("---------------------------------------")
 
+    writer = SummaryWriter()
+
     if not os.path.exists("./results"):
         os.makedirs("./results")
     if args.save_models and not os.path.exists("./pytorch_models"):
@@ -86,6 +90,7 @@ if __name__ == "__main__":
 
     # Evaluate untrained policy
     evaluations = [evaluate_policy(policy)]
+    writer.add_scalar('episode_count/eval_performance', evaluations[0], 0)
 
     timesteps_since_eval = 0
     episode_num = 0
@@ -96,6 +101,8 @@ if __name__ == "__main__":
     for total_timesteps in timestep_range:
 
         if done:
+            episode_num += 1
+
             if total_timesteps != 0:
                 timestep_range.set_postfix({
                     'Episode Num': episode_num,
@@ -111,7 +118,10 @@ if __name__ == "__main__":
             # Evaluate episode
             if timesteps_since_eval >= args.eval_freq:
                 timesteps_since_eval %= args.eval_freq
-                evaluations.append(evaluate_policy(policy))
+
+                eval_perf = evaluate_policy(policy)
+                evaluations.append(eval_perf)
+                writer.add_scalar('episode_count/eval_performance', eval_perf, episode_num)
 
                 if args.save_models: policy.save(file_name, directory="./pytorch_models")
                 np.save("./results/%s" % (file_name), evaluations)
@@ -121,7 +131,6 @@ if __name__ == "__main__":
             done = False
             episode_reward = 0
             episode_timesteps = 0
-            episode_num += 1
 
         # Select action randomly or according to policy
         if total_timesteps < args.start_timesteps:
