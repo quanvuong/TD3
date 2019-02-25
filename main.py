@@ -26,7 +26,7 @@ if __name__ == "__main__":
     print("Settings: %s" % (file_name))
     print("---------------------------------------")
 
-    writer = SummaryWriter()
+    writer = SummaryWriter(comment=file_name)
 
     if not os.path.exists("./results"):
         os.makedirs("./results")
