@@ -9,6 +9,7 @@ import DDPG
 import OurDDPG
 import TD3
 import utils
+from tqdm import trange
 
 
 # Runs policy for X episodes and returns average reward
@@ -84,20 +85,21 @@ if __name__ == "__main__":
     # Evaluate untrained policy
     evaluations = [evaluate_policy(policy)]
 
-    total_timesteps = 0
     timesteps_since_eval = 0
     episode_num = 0
     done = True
 
-    while total_timesteps < args.max_timesteps:
+    timestep_range = trange(int(args.max_timesteps))
+
+    for total_timesteps in timestep_range:
 
         if done:
-
             if total_timesteps != 0:
-                print(f"Total T: {total_timesteps}"
-                      f" Episode Num: {episode_num}"
-                      f" Episode T: {episode_timesteps}"
-                      f" Reward: {episode_reward}")
+                timestep_range.set_postfix({
+                    'Episode Num': episode_num,
+                    'Episode Timesteps': episode_timesteps,
+                    'Episode Reward': episode_reward
+                })
                 if args.policy_name == "TD3":
                     policy.train(replay_buffer, episode_timesteps, args.batch_size, args.discount, args.tau,
                                  args.policy_noise, args.noise_clip, args.policy_freq)
@@ -139,7 +141,6 @@ if __name__ == "__main__":
         obs = new_obs
 
         episode_timesteps += 1
-        total_timesteps += 1
         timesteps_since_eval += 1
 
     # Final evaluation
