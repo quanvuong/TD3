@@ -6,6 +6,7 @@ A port of the official PyTorch implementation of Twin Delayed Deep Deterministic
 2. torch.set_num_threads(1)
 3. Use tensorboardX to visualize evaluation performance during training
 4. One centralized function to set seed. Also set the seed of the GPU.
+5. Evaluation is run for 100 instead of 10 episodes.
 
 ### Usage
 The results can be reproduced exactly by running:
