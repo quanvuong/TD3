@@ -8,7 +8,7 @@ A port of the official PyTorch implementation of Twin Delayed Deep Deterministic
 4. One centralized function to set seed. Also set the seed of the GPU.
 
 ### Usage
-The paper results can be reproduced exactly by running:
+The results can be reproduced exactly by running:
 ```
 ./experiments.sh
 ```
