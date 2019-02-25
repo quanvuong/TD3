@@ -1,4 +1,4 @@
-# Addressing Function Approximation Error in Actor-Critic Methods
+# Python3 port of Addressing Function Approximation Error in Actor-Critic Methods
 
 A port of the official PyTorch implementation of Twin Delayed Deep Deterministic Policy Gradients (TD3) to Python 3 with a few additional changes:
 
