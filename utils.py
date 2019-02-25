@@ -9,8 +9,6 @@ import numpy as np
 # Expects tuples of (state, next_state, action, reward, done)
 import torch
 
-from main import env
-
 
 class ReplayBuffer(object):
     def __init__(self, max_size=1e6):
