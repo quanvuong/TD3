@@ -1,13 +1,12 @@
 import random
 
 import numpy as np
+# Expects tuples of (state, next_state, action, reward, done)
+import torch
 
 
 # Code based on:
 # https://github.com/openai/baselines/blob/master/baselines/deepq/replay_buffer.py
-
-# Expects tuples of (state, next_state, action, reward, done)
-import torch
 
 
 class ReplayBuffer(object):
