@@ -3,6 +3,7 @@
 A port of the official PyTorch implementation of Twin Delayed Deep Deterministic Policy Gradients (TD3) to Python 3 with a few additional changes:
 
 1. trange from the tqdm package is used to display progress bar
+2. torch.set_num_threads(1)
 
 ### Usage
 The paper results can be reproduced exactly by running:
