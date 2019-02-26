@@ -13,7 +13,9 @@ import utils
 from args import get_args
 from utils import set_global_seeds, evaluate_policy
 
-if __name__ == "__main__":
+
+
+def main():
 
     torch.set_num_threads(1)
 
@@ -121,3 +123,7 @@ if __name__ == "__main__":
     evaluations.append(evaluate_policy(policy, env))
     if args.save_models: policy.save("%s" % (file_name), directory="./pytorch_models")
     np.save("./results/%s" % (file_name), evaluations)
+
+
+if __name__ == '__main__':
+    main()
