@@ -30,4 +30,4 @@ python main.py --env HalfCheetah-v2
 The authors include an implementation of DDPG (DDPG.py) for easy comparison of hyper-parameters with TD3, this is not the implementation of "Our DDPG" as used in their paper (see OurDDPG.py).
 
 ### Results
-Each learning curve are formatted as NumPy arrays of 201 evaluations (201,), where each evaluation corresponds to the average episode return from running the policy for 100 episodes with no exploration. The first evaluation is the randomly initialized policy network (unused in the paper). Evaluations are performed every 5000 time steps, over a total of 1 million time steps.
+Each learning curve are formatted as NumPy arrays of 201 evaluations (201,), where each evaluation corresponds to the average episode return from running the policy for 100 episodes with no exploration. The first evaluation is the randomly initialized policy network (unused in the paper). Evaluations are performed every 5000 time steps, over a total of 1 million time steps. There is a notebook in the results folder to visualize the performance.
