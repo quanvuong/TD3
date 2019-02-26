@@ -9,6 +9,8 @@ A port of the official PyTorch implementation of Twin Delayed Deep Deterministic
 5. Evaluation is run for 100 instead of 10 episodes.
 6. Performance is tested on the v2 version of OpenAI Mujoco environments instead of v1
 
+With the same sets of hyper-parameters as in the original Python2 implementation, performance is high for every environment tested except for Ant-v2.
+
 ### Performance
 
 ![](results/graphs/Ant-v2.png) ![](results/graphs/HalfCheetah-v2.png) ![](results/graphs/InvertedPendulum-v2.png) ![](results/graphs/Reacher-v2.png)
