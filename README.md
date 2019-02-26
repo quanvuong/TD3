@@ -7,6 +7,7 @@ A port of the official PyTorch implementation of Twin Delayed Deep Deterministic
 3. Use tensorboardX to visualize evaluation performance during training
 4. One centralized function to set seed. Also set the seed of the GPU.
 5. Evaluation is run for 100 instead of 10 episodes.
+6. Performance is tested on the v2 version of OpenAI Mujoco environments instead of v1
 
 ### Usage
 The results can be reproduced exactly by running:
