@@ -9,6 +9,8 @@ A port of the official PyTorch implementation of Twin Delayed Deep Deterministic
 5. Evaluation is run for 100 instead of 10 episodes.
 6. Performance is tested on the v2 version of OpenAI Mujoco environments instead of v1
 
+### Performance
+
 ### Usage
 The results can be reproduced exactly by running:
 ```
