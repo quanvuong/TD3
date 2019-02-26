@@ -14,7 +14,7 @@ from args import get_args
 from utils import set_global_seeds, evaluate_policy
 
 
-
+@profile
 def main():
 
     torch.set_num_threads(1)
