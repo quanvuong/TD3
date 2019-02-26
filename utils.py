@@ -1,13 +1,12 @@
 import random
 
 import numpy as np
+# Expects tuples of (state, next_state, action, reward, done)
+import torch
 
 
 # Code based on:
 # https://github.com/openai/baselines/blob/master/baselines/deepq/replay_buffer.py
-
-# Expects tuples of (state, next_state, action, reward, done)
-import torch
 
 
 class ReplayBuffer(object):
@@ -48,6 +47,9 @@ def set_global_seeds(seed):
 
 
 def evaluate_policy(policy, env, eval_episodes=100):
+    #TODO: this function can be substantially speed up
+    #This function currently consumes ~30-50% of compute time
+
     avg_reward = 0.
     for _ in range(eval_episodes):
         obs = env.reset()
