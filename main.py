@@ -56,8 +56,8 @@ def main():
     replay_buffer = utils.ReplayBuffer()
 
     # Evaluate untrained policy
-    # evaluations = [evaluate_policy(policy, env)]
-    # writer.add_scalar('episode_count/eval_performance', evaluations[0], 0)
+    evaluations = [evaluate_policy(policy, env)]
+    writer.add_scalar('episode_count/eval_performance', evaluations[0], 0)
 
     timesteps_since_eval = 0
     episode_num = 0
@@ -83,15 +83,15 @@ def main():
                     policy.train(replay_buffer, episode_timesteps, args.batch_size, args.discount, args.tau)
 
             # Evaluate episode
-            # if timesteps_since_eval >= args.eval_freq:
-            #     timesteps_since_eval %= args.eval_freq
-            #
-            #     eval_perf = evaluate_policy(policy, env)
-            #     evaluations.append(eval_perf)
-            #     writer.add_scalar('episode_count/eval_performance', eval_perf, episode_num)
-            #
-            #     if args.save_models: policy.save(file_name, directory="./pytorch_models")
-            #     np.save("./results/%s" % (file_name), evaluations)
+            if timesteps_since_eval >= args.eval_freq:
+                timesteps_since_eval %= args.eval_freq
+
+                eval_perf = evaluate_policy(policy, env)
+                evaluations.append(eval_perf)
+                writer.add_scalar('episode_count/eval_performance', eval_perf, episode_num)
+
+                if args.save_models: policy.save(file_name, directory="./pytorch_models")
+                np.save("./results/%s" % (file_name), evaluations)
 
             # Reset environment
             obs = env.reset()
