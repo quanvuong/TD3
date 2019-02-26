@@ -26,6 +26,8 @@ def main():
     print("Settings: %s" % (file_name))
     print("---------------------------------------")
 
+    print(f'CUDA available: {torch.cuda.is_available()}')
+
     writer = SummaryWriter(comment=file_name)
 
     if not os.path.exists("./results"):
