@@ -47,6 +47,9 @@ def set_global_seeds(seed):
 
 
 def evaluate_policy(policy, env, eval_episodes=100):
+    #TODO: this function can be substantially speed up by vectorizing the env
+    #This function currently consumes ~30% of compute time
+
     avg_reward = 0.
     for _ in range(eval_episodes):
         obs = env.reset()
