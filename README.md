@@ -11,6 +11,12 @@ A port of the official PyTorch implementation of Twin Delayed Deep Deterministic
 
 ### Performance
 
+![](results/graphs/Ant-v2.png) ![](results/graphs/HalfCheetah-v2.png) ![](results/graphs/InvertedPendulum-v2.png)
+
+![](results/graphs/Hopper-v2.png) ![](results/graphs/Walker2d-v2.png) ![](results/graphs/InvertedDoublePendulum-v2.png)
+
+![](results/graphs/Reacher-v2.png)
+
 ### Usage
 The results can be reproduced exactly by running:
 ```
