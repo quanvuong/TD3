@@ -75,8 +75,6 @@ def timeit(method):
 
 #@timeit
 def evaluate_policy(policy, env, eval_episodes=100, env_chunk_size=50):
-    #TODO: this function can be substantially speed up
-    #This function currently consumes ~30-50% of compute time
 
     envs = [copy.deepcopy(env) for _ in range(eval_episodes)]
     for i, env in enumerate(envs):
