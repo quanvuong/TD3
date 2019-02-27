@@ -73,7 +73,7 @@ def timeit(method):
         return result
     return timed
 
-@timeit
+#@timeit
 def evaluate_policy(policy, env, eval_episodes=100, env_chunk_size=50):
     #TODO: this function can be substantially speed up
     #This function currently consumes ~30-50% of compute time
@@ -86,7 +86,6 @@ def evaluate_policy(policy, env, eval_episodes=100, env_chunk_size=50):
 
     for env_chunk, idx in chunk(envs, chunk_size=env_chunk_size):
         obs = np.stack([env.reset() for env in env_chunk])
-        import ipdb; ipdb.set_trace()
         while not all(done[idx]):
             actions = policy.select_actions(obs)
             for i, (env, action, j) in enumerate(zip(env_chunk, actions, range(eval_episodes)[idx])):
