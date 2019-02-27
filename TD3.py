@@ -80,6 +80,10 @@ class TD3(object):
         state = torch.FloatTensor(state.reshape(1, -1)).to(device)
         return self.actor(state).cpu().data.numpy().flatten()
 
+    def select_actions(self, states):
+        states = torch.FloatTensor(states).to(device)
+        return self.actor(states).cpu().data.numpy()
+
     def train(self, replay_buffer, iterations, batch_size=100, discount=0.99, tau=0.005, policy_noise=0.2,
               noise_clip=0.5, policy_freq=2):
 
