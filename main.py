@@ -3,15 +3,17 @@ import os
 import gym
 import numpy as np
 import torch
-from tensorboardX import SummaryWriter
-from tqdm import trange
 
 import DDPG
 import OurDDPG
 import TD3
 import utils
+from tqdm import trange
+
+from tensorboardX import SummaryWriter
 from args import get_args
 from utils import set_global_seeds, evaluate_policy
+
 
 if __name__ == "__main__":
 

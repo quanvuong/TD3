@@ -54,6 +54,3 @@ fabric.properties
 .idea/
 __pycache__/
 runs/
-results/.DS_Store
-results/.ipynb_checkpoints/
-MUJOCO_LOG.TXT

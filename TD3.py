@@ -2,9 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-# device = torch.device('cpu')
-
+# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device('cpu')
 
 # Implementation of Twin Delayed Deep Deterministic Policy Gradients (TD3)
 # Paper: https://arxiv.org/abs/1802.09477
@@ -80,10 +79,6 @@ class TD3(object):
         state = torch.FloatTensor(state.reshape(1, -1)).to(device)
         return self.actor(state).cpu().data.numpy().flatten()
 
-    def select_actions(self, states):
-        states = torch.FloatTensor(states).to(device)
-        return self.actor(states).cpu().data.numpy()
-
     def train(self, replay_buffer, iterations, batch_size=100, discount=0.99, tau=0.005, policy_noise=0.2,
               noise_clip=0.5, policy_freq=2):
 
@@ -136,7 +131,7 @@ class TD3(object):
                 for param, target_param in zip(self.actor.parameters(), self.actor_target.parameters()):
                     target_param.data.copy_(tau * param.data + (1 - tau) * target_param.data)
 
-    # TODO: also save state of optimizer
+    #TODO: also save state of optimizer
     def save(self, filename, directory):
         torch.save(self.actor.state_dict(), '%s/%s_actor.pth' % (directory, filename))
         torch.save(self.critic.state_dict(), '%s/%s_critic.pth' % (directory, filename))
